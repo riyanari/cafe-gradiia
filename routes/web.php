@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\User\CafeController;
+use App\Http\Controllers\User\MenuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,4 +28,9 @@ Route::prefix('cafe')->name('cafe.')->group(function () {
 
     // /cafe/{slug}
     Route::get('{cafe:slug}', [CafeController::class, 'detail'])->name('detail');
+
+     Route::prefix('menu')->name('menu.')->group(function () {
+        Route::get('/{menu}/customize', [MenuController::class, 'customize'])->name('customize');
+        Route::post('/{menu}/add-to-cart', [MenuController::class, 'addToCart'])->name('add-to-cart');
+    });
 });

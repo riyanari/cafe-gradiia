@@ -19,6 +19,11 @@
         window.__CAFES__ = @json($cafes ?? []);
     </script>
 
+    <script>
+        window.__CAFE_DETAIL_BASE__ = "{{ url('/cafe') }}";
+    </script>
+
+
     {{-- RENDERING & FILTERING --}}
     <script>
         (function() {
@@ -67,7 +72,7 @@
             function cardHtml(c) {
                 const img = (c.images && c.images[0] && c.images[0].image_url) ? c.images[0].image_url :
                     '{{ asset('images/image_null.png') }}';
-                const slug = c.slug ? '/cafes/' + c.slug : '#';
+                const slug = c.slug ? window.__CAFE_DETAIL_BASE__ + '/' + encodeURIComponent(c.slug) : '#';
                 const nama = c.name || '-';
                 const desa = get(c, 'alamat.village') || '';
                 const kota = get(c, 'alamat.city') || '';
