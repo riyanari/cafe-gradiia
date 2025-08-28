@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\CafeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('User/Pages/Home/home');
+});
+
+// Route::get('/cafes', [CafeController::class, 'index'])->name('cafes.index');
+// Route::get('/{cafe:slug}', [CafeController::class, 'detail'])->name('detail');
+
+Route::prefix('cafe')->name('cafe.')->group(function () {
+    // /cafe
+    Route::get('/', [CafeController::class, 'index'])->name('index');
+
+    // /cafe/{slug}
+    Route::get('{cafe:slug}', [CafeController::class, 'detail'])->name('detail');
 });
