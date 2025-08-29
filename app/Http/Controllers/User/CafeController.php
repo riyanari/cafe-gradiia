@@ -27,6 +27,7 @@ class CafeController extends Controller
                 $query->where('isAvailable', true);
             }
         ]);
+        // dd($cafe);
 
         return view('User.Pages.Cafes.Detail.detailCafe', compact('cafe'));
     }
