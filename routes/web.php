@@ -34,10 +34,13 @@ Route::middleware('guest')->group(function () {
 });
 
 /* ---------- Dashboards per-role ---------- */
-Route::middleware(['auth', 'role:superadmin,web'])
+Route::middleware(['auth', 'role:superadmin'])
     ->prefix('owner')->name('owner.')->group(function () {
         Route::get('/dashboard', [OwnerMyuController::class, 'index'])->name('dashboard');
     });
+
+
+
 
 
 Route::middleware(['auth', 'role:owner_cafe'])->prefix('cafe-owner')->name('cafe-owner.')->group(function () {

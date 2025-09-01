@@ -16,7 +16,7 @@ class RoleMiddleware
         $user = $request->user();
 
         // Sesuaikan akses role di kolom users.role (string)
-        if (!in_array($user->role, $roles, true)) {
+        if (!$user->hasAnyRole($roles)) {
             abort(403); // Forbidden
         }
 

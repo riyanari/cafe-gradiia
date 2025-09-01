@@ -13,7 +13,7 @@ class OwnerMyuController extends Controller
      */
     public function index()
     {
-        return view('Admin.Pages.CafeMyU.owner');
+        return view('Admin.Pages.CafeMyU.dashboard');
     }
 
     /**
