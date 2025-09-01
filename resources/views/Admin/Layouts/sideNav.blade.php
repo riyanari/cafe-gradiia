@@ -57,7 +57,7 @@
                                 <a class="nav-link" href="#">Nilai <span class="text-muted">(dev)</span></a>
                             </nav>
                         </div>
-                        @if(Auth::user()->nisn === 'bendaharadafa')
+                        {{-- @if(Auth::user()->nisn === 'bendaharadafa') --}}
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAdministrasi" aria-expanded="false" aria-controls="pagesCollapseAdministrasi">
                             Administrasi
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -68,7 +68,7 @@
                                 <a class="nav-link" href="">Administrasi Siswa</a>
                             </nav>
                         </div>
-                        @endif
+                        {{-- @endif --}}
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapsePelanggaran" aria-expanded="false" aria-controls="pagesCollapsePelanggaran">
                             Pelanggaran
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -98,7 +98,8 @@
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            {{ Auth::user()->role }} -> {{ Auth::user()->name }}
+            {{-- {{ Auth::user()->name }} --}}
+            {{-- {{ Auth::user()->role }} -> {{ Auth::user()->name }} --}}
         </div>
     </nav>
 </div>

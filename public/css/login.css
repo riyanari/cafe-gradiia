@@ -1,0 +1,84 @@
+:root {
+    --primary-brown: #3b1606;
+    --secondary-brown: #ce8f28;
+    --light-brown: #fff3df;
+    --gray-100: #f6f6f7;
+    --gray-300: #d5d7da;
+    --gray-500: #8a8f98;
+    --gray-700: #3c4047;
+    /* --primary-blue: #0a2463;
+    --secondary-blue: #3e92cc;
+    --light-blue: #d6f1ff; */
+    --white: #ffffff;
+    --soft-shadow: 0 8px 32px rgba(10, 36, 99, 0.1);
+    --price-gap: clamp(24px, 4vw, 56px);
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    --radius: 16px;
+}
+
+html,
+body {
+    height: 100%;
+}
+/* Kunci halaman di desktop agar tidak scroll */
+@media (min-width: 992px) {
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+}
+
+.bg-background {
+    background: #0f0f0f;
+}
+.card-bg {
+    background: #171717;
+    border: 1px solid #262626;
+}
+
+.btn-small-primary {
+    background-color: var(--secondary-brown);
+    border-color: var(--secondary-brown);
+    padding: 10px 72px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    cursor: pointer;
+    /* Menghilangkan efek biru default browser */
+    outline: none !important;
+}
+
+.btn-small-primary:hover {
+    background-color: var(--primary-brown);
+    border-color: var(--primary-brown);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(62, 146, 204, 0.2);
+}
+
+/* Menghapus efek biru saat tombol aktif (diklik) */
+.btn-small-primary:active,
+.btn-small-primary:focus {
+    background-color: var(--secondary-brown) !important;
+    border-color: var(--secondary-brown) !important;
+    box-shadow: none !important;
+    /* Untuk beberapa browser, perlu menambahkan ini */
+    outline: none !important;
+}
+
+/* Pastikan teks selalu putih di semua state link */
+.btn-small-primary,
+.btn-small-primary:link,
+.btn-small-primary:visited {
+    color: #fff;
+}
+
+.btn-small-primary:hover,
+.btn-small-primary:focus,
+.btn-small-primary:active {
+    color: #fff !important; /* pakai !important jika Bootstrap override */
+    text-decoration: none; /* cegah underline saat hover */
+}
