@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between align-items-center mt-3">
         <div class="d-flex align-items-center gap-3">
             <div class="rounded-circle d-flex align-items-center justify-content-center bg-light-brown"
-                 style="width:48px;height:48px;">
+                style="width:48px;height:48px;">
                 <img src="/images/img_meja_cafe.png" class="img-fluid" alt="Meja Cafe" style="width:32px;height:32px;">
             </div>
             <div class="position-relative">
@@ -39,12 +39,12 @@
                     <span class="input-group-text" id="searchIcon">
                         <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
-                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1111.2 2.6l4.2 4.2a1 1 0 11-1.4 1.4l-4.2-4.2A6 6 0 012 8z"
-                                  clip-rule="evenodd" />
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1111.2 2.6l4.2 4.2a1 1 0 11-1.4 1.4l-4.2-4.2A6 6 0 012 8z"
+                                clip-rule="evenodd" />
                         </svg>
                     </span>
                     <input id="inputSearch" type="text" class="form-control" placeholder="Mau makan apa?"
-                           aria-describedby="searchIcon">
+                        aria-describedby="searchIcon">
                 </div>
             </div>
         </div>
@@ -60,9 +60,15 @@
 
                     {{-- Toggle show/hide (collapse) --}}
                     <button class="btn btn-link text-decoration-none p-0 small" data-bs-toggle="collapse"
-                            data-bs-target="#collapse-{{ $catId }}" aria-expanded="true">
-                        <span class="collapse-toggle-text">Sembunyikan</span>
+                        data-bs-target="#collapse-{{ $catId }}" aria-expanded="true"
+                        aria-label="Toggle kategori">
+                        <svg class="collapse-toggle-icon" width="18" height="18" viewBox="0 0 24 24"
+                            fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
                     </button>
+
                 </div>
 
                 <div id="collapse-{{ $catId }}" class="collapse show">
@@ -76,46 +82,55 @@
                             @endphp
 
                             <div class="card shadow-sm menu-item" data-id="{{ data_get($item, 'id') }}"
-                                 data-name="{{ data_get($item, 'name') }}" data-price="{{ $price }}"
-                                 data-category="{{ $cat }}">
+                                data-name="{{ data_get($item, 'name') }}" data-price="{{ $price }}"
+                                data-category="{{ $cat }}" data-img="{{ $img }}">
+                                {{-- <-- tambahkan ini --}}
+
                                 <div class="row g-0">
                                     <div class="col-4">
-                                        <img src="{{ $img }}"
-                                             class="img-fluid rounded-start h-100 object-fit-cover"
-                                             alt="{{ data_get($item, 'name') }}"
-                                             onerror="this.src='/images/default_food.jpg'">
+                                        <img data-src="{{ $img }}" {{-- real URL disimpan di data-src --}}
+                                            src="/images/placeholder_food.jpg" {{-- placeholder kecil/static --}}
+                                            class="img-fluid rounded-start h-100 object-fit-cover lazy-img"
+                                            alt="{{ data_get($item, 'name') }}" loading="lazy" decoding="async">
+                                        {{-- bantu browser native lazy-load --}}
                                     </div>
                                     <div class="col-8">
                                         <div class="card-body py-2">
                                             <div class="d-flex justify-content-between">
-                                                <h5 class="card-title h6 mb-1 item-name">{{ data_get($item, 'name') }}</h5>
+                                                <h5 class="card-title h6 mb-1 item-name">{{ data_get($item, 'name') }}
+                                                </h5>
                                                 @if (!$available)
                                                     <span class="badge text-bg-secondary">Habis</span>
                                                 @endif
                                             </div>
                                             <p class="card-text mb-2">
-                                                <strong class="text-primary-brown item-price" data-price="{{ $price }}">
+                                                <strong class="text-primary-brown item-price"
+                                                    data-price="{{ $price }}">
                                                     {{ number_format($price, 0, ',', '.') }}
                                                 </strong>
                                             </p>
 
-                                            <div class="d-flex align-items-center gap-2">
+                                            <div class="d-flex align-items-center gap-2 w-100"> {{-- full width --}}
                                                 @if ($available)
-                                                    <div class="btn-group" role="group">
+                                                    <div class="btn-group" role="group" aria-label="Kuantitas">
                                                         <button type="button"
-                                                                class="btn btn-outline-brown btn-sm btn-minus">-</button>
-                                                        <button type="button"
-                                                                class="btn btn-brown btn-sm btn-plus">+</button>
+                                                            class="btn btn-outline-brown btn-sm btn-minus"
+                                                            aria-label="Kurangi">-</button>
+                                                        <button type="button" class="btn btn-light btn-sm btn-qty"
+                                                            style="min-width:2.25rem" disabled>0</button>
+                                                        <button type="button" class="btn btn-brown btn-sm btn-plus"
+                                                            aria-label="Tambah">+</button>
                                                     </div>
                                                 @endif
 
-                                                @if ($isCustomizable)
+                                                {{-- @if ($isCustomizable)
                                                     <a href="{{ route('cafe.menu.customize', ['menu' => data_get($item, 'id')]) }}"
-                                                       class="btn-small-primary">
+                                                        class="btn-small-primary btn-compact ms-auto text-nowrap">
                                                         Customize
                                                     </a>
-                                                @endif
+                                                @endif --}}
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -141,6 +156,41 @@
             const inputSearch = document.getElementById('inputSearch');
             const sections = document.querySelectorAll('.category-section');
             const items = document.querySelectorAll('.menu-item');
+            // ===== Lazy-load images (load sekali saat terlihat) =====
+            const DEFAULT_IMG = '/images/default_food.jpg';
+
+            function loadRealSrc(img) {
+                if (img.dataset.loaded === 'true') return; // sudah pernah load, stop
+                const real = img.getAttribute('data-src');
+                if (real) img.src = real;
+                img.addEventListener('error', () => {
+                    if (img.dataset.fallbacked === 'true') return;
+                    img.dataset.fallbacked = 'true';
+                    img.src = DEFAULT_IMG; // fallback sekali saja
+                }, {
+                    once: true
+                });
+                img.dataset.loaded = 'true';
+            }
+
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        const img = entry.target;
+                        loadRealSrc(img);
+                        obs.unobserve(img); // penting: jangan observe lagi
+                    });
+                }, {
+                    rootMargin: '200px 0px',
+                    threshold: 0.01
+                });
+
+                document.querySelectorAll('img.lazy-img').forEach(img => io.observe(img));
+            } else {
+                // Fallback browser lama: langsung set src real
+                document.querySelectorAll('img.lazy-img').forEach(loadRealSrc);
+            }
 
             function applyFilter() {
                 const q = (inputSearch.value || '').toLowerCase();
@@ -175,16 +225,22 @@
                     .replace(/\-\-+/g, '-').replace(/^-+/, '').replace(/-+$/, '');
             }
 
-            // Collapse toggle text swap
+            // Collapse toggle icon rotate
             document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(btn => {
                 const targetSel = btn.getAttribute('data-bs-target');
                 const target = document.querySelector(targetSel);
-                const txt = btn.querySelector('.collapse-toggle-text');
-                if (!target || !txt) return;
+                const icon = btn.querySelector('.collapse-toggle-icon');
+                if (!target || !icon) return;
 
-                target.addEventListener('shown.bs.collapse', () => txt.textContent = 'Sembunyikan');
-                target.addEventListener('hidden.bs.collapse', () => txt.textContent = 'Tampilkan');
+                // Set awal: kalau sedang 'show', ikon menghadap ke atas (rotasi 180)
+                if (target.classList.contains('show')) {
+                    icon.classList.add('rot-180');
+                }
+
+                target.addEventListener('shown.bs.collapse', () => icon.classList.add('rot-180'));
+                target.addEventListener('hidden.bs.collapse', () => icon.classList.remove('rot-180'));
             });
+
 
             // Cart ops
             const getCart = () => {
@@ -201,6 +257,21 @@
                 window.dispatchEvent(ev);
             };
 
+            const getQty = (id) => {
+                const cart = getCart();
+                return (cart.find(x => x.id == id)?.quantity) || 0;
+            };
+
+            function updateQtyUIForCard(card) {
+                const id = card.dataset.id;
+                const qtyEl = card.querySelector('.btn-qty');
+                const minus = card.querySelector('.btn-minus');
+                const qty = getQty(id);
+                if (qtyEl) qtyEl.textContent = qty;
+                if (minus) minus.disabled = qty <= 0;
+            }
+
+
             function addItemToCart(item) {
                 const cart = getCart();
                 const idx = cart.findIndex(x => x.id == item.id);
@@ -211,6 +282,8 @@
                 });
                 setCart(cart);
                 updateBadge();
+                const card = document.querySelector(`.menu-item[data-id="${item.id}"]`);
+                if (card) updateQtyUIForCard(card);
             }
 
             function decreaseItem(item) {
@@ -221,18 +294,24 @@
                     if (cart[idx].quantity <= 0) cart.splice(idx, 1);
                     setCart(cart);
                     updateBadge();
+                    const card = document.querySelector(`.menu-item[data-id="${item.id}"]`);
+                    if (card) updateQtyUIForCard(card);
                 }
             }
+
 
             // Bind plus/minus buttons
             document.querySelectorAll('.menu-item').forEach(card => {
                 const id = card.dataset.id;
                 const name = card.dataset.name;
                 const price = Number(card.dataset.price || 0);
-                const img = card.querySelector('img')?.getAttribute('src') || '/images/default_food.jpg';
+                const img = card.dataset.img || '/images/default_food.jpg';
 
                 const plus = card.querySelector('.btn-plus');
                 const minus = card.querySelector('.btn-minus');
+
+                // Sinkron tampilan qty saat awal load
+                updateQtyUIForCard(card);
 
                 if (plus) plus.addEventListener('click', () => addItemToCart({
                     id,
@@ -244,6 +323,7 @@
                     id
                 }));
             });
+
         })();
     </script>
 @endpush

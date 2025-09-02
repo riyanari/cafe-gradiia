@@ -22,9 +22,15 @@ body {
 }
 
 /* warna & util */
-.text-primary-brown { color: var(--primary-brown) !important; }
-.text-secondary-brown { color: var(--secondary-brown) !important; }
-.bg-light-brown { background-color: var(--light-brown) !important; }
+.text-primary-brown {
+    color: var(--primary-brown) !important;
+}
+.text-secondary-brown {
+    color: var(--secondary-brown) !important;
+}
+.bg-light-brown {
+    background-color: var(--light-brown) !important;
+}
 
 /* Tinggi seragam untuk semua slide */
 #cafeCarousel .carousel-item {
@@ -36,31 +42,34 @@ body {
     object-fit: cover; /* crop rapi, tanpa distorsi */
 }
 
-.btn-link { color: var(--primary-brown); }
-.btn-link:hover { color: var(--secondary-brown); }
+.btn-link {
+    color: var(--primary-brown);
+}
+.btn-link:hover {
+    color: var(--secondary-brown);
+}
 
 /* tombol palet cokelat */
-.btn-brown{
-  background-color: var(--secondary-brown);
-  border-color: var(--secondary-brown);
-  color: #fff;
+.btn-brown {
+    background-color: var(--secondary-brown);
+    border-color: var(--secondary-brown);
+    color: #fff;
 }
-.btn-brown:hover{
-  background-color: var(--primary-brown);
-  border-color: var(--primary-brown);
-  color: #fff;
+.btn-brown:hover {
+    background-color: var(--primary-brown);
+    border-color: var(--primary-brown);
+    color: #fff;
 }
-.btn-outline-brown{
-  border-color: var(--secondary-brown);
-  color: var(--primary-brown);
-  background-color: transparent;
+.btn-outline-brown {
+    border-color: var(--secondary-brown);
+    color: var(--primary-brown);
+    background-color: transparent;
 }
-.btn-outline-brown:hover{
-  background-color: var(--secondary-brown);
-  border-color: var(--secondary-brown);
-  color: #fff;
+.btn-outline-brown:hover {
+    background-color: var(--secondary-brown);
+    border-color: var(--secondary-brown);
+    color: #fff;
 }
-
 
 .btn-small-primary {
     background-color: var(--secondary-brown);
@@ -107,4 +116,30 @@ body {
 .btn-small-primary:active {
     color: #fff !important; /* pakai !important jika Bootstrap override */
     text-decoration: none; /* cegah underline saat hover */
+}
+
+/* ==== VARIAN COMPACT: khusus tombol Customize di dalam kartu menu ==== */
+.menu-item .btn-small-primary.btn-compact {
+    padding: 0.5rem 0.8rem; /* lebih ramping: ~4px 8px */
+    font-size: 0.75rem; /* 12px */
+    line-height: 1.1;
+    min-width: 0; /* hilangkan lebar minimum */
+    border-radius: 0.375rem; /* 6px */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Hover khusus compact (lebih halus, tidak loncat jauh) */
+.menu-item .btn-small-primary.btn-compact:hover {
+    transform: translateY(-2px);
+    /* shadow dengan nuansa cokelat biar konsisten palette */
+    box-shadow: 0 8px 16px rgba(59, 22, 6, 0.16);
+}
+
+.collapse-toggle-icon {
+    transition: transform 0.2s ease;
+}
+.rot-180 {
+    transform: rotate(180deg);
 }
