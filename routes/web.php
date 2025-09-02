@@ -42,7 +42,6 @@ Route::middleware(['auth', 'role:superadmin'])
 
 
 
-
 Route::middleware(['auth', 'role:owner_cafe'])->prefix('cafe-owner')->name('cafe-owner.')->group(function () {
     Route::get('/dashboard', [OwnerCafeController::class, 'index'])->name('dashboard');
 });
@@ -67,11 +66,24 @@ Route::prefix('cafe')->name('cafe.')->group(function () {
     // /cafe
     Route::get('/', [CafeController::class, 'index'])->name('index');
 
-    // /cafe/{slug}
-    Route::get('{cafe:slug}', [CafeController::class, 'detail'])->name('detail');
-
+    // /cafe/menu/...
     Route::prefix('menu')->name('menu.')->group(function () {
-        Route::get('/{menu}/customize', [MenuController::class, 'customize'])->name('customize');
-        Route::post('/{menu}/add-to-cart', [MenuController::class, 'addToCart'])->name('add-to-cart');
+        Route::get('{menu}/customize', [MenuController::class, 'customize'])->name('customize');
+        Route::post('{menu}/add-to-cart', [MenuController::class, 'addToCart'])->name('add-to-cart');
     });
+
+    // /cafe/keranjang (HALAMAN BARU)
+    Route::get('keranjang', function () {
+        // --> buat file: resources/views/User/Pages/Cafes/Detail/cart.blade.php
+        return view('User.Pages.Cafes.Detail.cart');
+    })->name('cart');
+
+    // (opsional) /cafe/checkout
+    Route::get('checkout', function () {
+        // --> buat file kalau butuh: resources/views/User/Pages/Cafes/Detail/checkout.blade.php
+        return view('User.Pages.Cafes.Detail.checkout');
+    })->name('checkout');
+
+    // Paling akhir agar tidak "memakan" path lain
+    Route::get('{cafe:slug}', [CafeController::class, 'detail'])->name('detail');
 });

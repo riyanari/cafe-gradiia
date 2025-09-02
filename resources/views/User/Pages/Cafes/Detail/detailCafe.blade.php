@@ -67,8 +67,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const btn = document.getElementById('btnCekKeranjang');
             if (btn) btn.addEventListener('click', () => {
-                // TODO: ganti ke route keranjang kamu, contoh:
-                alert('Keranjang belum diarahkan. Silakan sambungkan ke halaman keranjangmu.');
+                window.location.href = "{{ route('cafe.cart') }}";
             });
         });
     </script>

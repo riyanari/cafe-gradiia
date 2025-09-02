@@ -157,7 +157,7 @@
             const sections = document.querySelectorAll('.category-section');
             const items = document.querySelectorAll('.menu-item');
             // ===== Lazy-load images (load sekali saat terlihat) =====
-            const DEFAULT_IMG = '/images/default_food.jpg';
+            const DEFAULT_IMG = '/images/null_image.png';
 
             function loadRealSrc(img) {
                 if (img.dataset.loaded === 'true') return; // sudah pernah load, stop
