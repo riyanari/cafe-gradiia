@@ -31,7 +31,11 @@ Route::get('/superadmin', function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login',  [AuthController::class, 'showLogin'])->name('login');         // tampilkan form login
     Route::post('/login-proses', [AuthController::class, 'login'])->name('login-proses');     // proses login
+    
 });
+Route::post('/checkout/store', [CafeController::class, 'store'])->name('cafe.checkout.store');
+Route::get('/cafe/orders/{order}', [CafeController::class, 'showOrder'])->name('cafe.orders.show');
+
 
 /* ---------- Dashboards per-role ---------- */
 Route::middleware(['auth', 'role:superadmin'])

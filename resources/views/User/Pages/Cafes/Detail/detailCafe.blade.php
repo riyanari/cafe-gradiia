@@ -23,7 +23,7 @@
             <button id="btnCekKeranjang"
                 class="btn-small-primary w-100 rounded-pill fw-semibold d-flex align-items-center justify-content-center"
                 style="max-width: 480px;">
-                <span>Cek Keranjang</span>
+                <span>Keranjang</span>
                 <span id="cartBadge" class="badge bg-white text-primary-brown ms-2"></span>
             </button>
         </div>
