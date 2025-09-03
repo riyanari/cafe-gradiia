@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
@@ -22,6 +23,11 @@ class AuthController extends Controller
     public function showLogin()
     {
         return view('Auth.login'); // tampilan form login kamu
+    }
+
+    public function showCreate()
+    {
+        return view('Auth.register'); // tampilan form login kamu
     }
 
 
@@ -80,7 +86,30 @@ class AuthController extends Controller
             ->onlyInput('email');
     }
 
+    public function create(Request $request)
+    {
+        // Validate the input data
+        $validated = $request->validate([
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role'     => ['required', 'string', 'in:superadmin,owner_cafe,admin_cafe,cashier_cafe'],
+        ]);
 
+        // Create the user
+        $user = User::create([
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        // Assign the role to the user
+        $user->assignRole($validated['role']); // Assumes you are using Spatie's Laravel Permission package or similar
+
+        // Return a success response or redirect as needed
+        return redirect()->route('users.index') // Adjust the route as needed
+            ->with('success', 'User created successfully!');
+    }
 
 
     // Logout

@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alamat_cafes', function (Blueprint $table) {
+        Schema::create('subscription_cafes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cafe_id')->constrained('cafes')->onDelete('cascade');
-            $table->string('village', 50);
-            $table->string('city', 50);
-            $table->string('provinsi', 50);
-            $table->string('url_maps', 255);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->boolean('is_premium')->default(false);
+            $table->dateTime('request_date');
+            $table->unsignedInteger('price');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alamat_cafes');
+        Schema::dropIfExists('subscription_cafes');
     }
 };

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customize_menu_cafes', function (Blueprint $table) {
+        Schema::create('transaction_menus', function (Blueprint $table) {
             $table->id();
             $table->foreignId('menu_cafe_id')->constrained('menu_cafes')->cascadeOnDelete();
-            $table->string('name', 50);
-            $table->decimal('price_sub', 10, 2)->default(0.00);
-            $table->boolean('is_selected')->default(false);
-            $table->boolean('is_available')->default(true);
+            $table->foreignId('transaction_id')->constrained('transactions')->cascadeOnDelete();
+            $table->integer('quantity');
+            $table->decimal('total_price', 10, 2)->default(0.00);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customize_menu_cafes');
+        Schema::dropIfExists('transaction_menus');
     }
 };

@@ -30,7 +30,9 @@ Route::get('/superadmin', function () {
 
 Route::middleware('guest')->group(function () {
     Route::get('/login',  [AuthController::class, 'showLogin'])->name('login');         // tampilkan form login
+    Route::get('/create',  [AuthController::class, 'showCreate'])->name('create');         // tampilkan form login
     Route::post('/login-proses', [AuthController::class, 'login'])->name('login-proses');     // proses login
+    Route::post('/create-proses', [AuthController::class, 'create'])->name('create-proses');     // proses login
     
 });
 Route::post('/checkout/store', [CafeController::class, 'store'])->name('cafe.checkout.store');
@@ -42,9 +44,6 @@ Route::middleware(['auth', 'role:superadmin'])
     ->prefix('owner')->name('owner.')->group(function () {
         Route::get('/dashboard', [OwnerMyuController::class, 'index'])->name('dashboard');
     });
-
-
-
 
 Route::middleware(['auth', 'role:owner_cafe'])->prefix('cafe-owner')->name('cafe-owner.')->group(function () {
     Route::get('/dashboard', [OwnerCafeController::class, 'index'])->name('dashboard');

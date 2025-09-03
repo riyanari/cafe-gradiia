@@ -1,6 +1,6 @@
 @extends('Auth.layouts')
 
-@section('title', 'Sign In')
+@section('title', 'Sign Up')
 
 @section('content')
     <div class="container-fluid px-3 px-md-4">
@@ -13,19 +13,16 @@
                 </div>
             </div>
 
-
             <div class="col-lg-6 d-flex align-items-center justify-content-center vh-100 overflow-auto py-5">
                 <div class="mx-auto" style="max-width: 520px;">
                     <div class="mb-5">
                         <span class="fw-bold display-5 text-white">CaféMyU</span>
                     </div>
 
-
                     <div class="mb-4">
-                        <h1 class="h3 fw-semibold mb-2">Welcome Back</h1>
+                        <h1 class="h3 fw-semibold mb-2">Create an Account</h1>
                         <p class="text-secondary mb-0">
-                            Manage your café and restaurant with ease<br>
-                            and provide the best service for customers
+                            Join us to manage your café and provide the best service for customers.
                         </p>
                     </div>
 
@@ -42,25 +39,35 @@
                         </div>
                     @endif
 
-                    {{-- Status message (opsional) --}}
+                    {{-- Status message (optional) --}}
                     @if (session('status'))
                         <div class="alert alert-info small">{{ session('status') }}</div>
                     @endif
 
-                    <form method="POST" action="{{ route('login-proses') }}" novalidate class="p-3 p-md-4">
+                    <form method="POST" action="{{ route('create-proses') }}" novalidate class="p-3 p-md-4">
                         @csrf
+
+                        {{-- Name --}}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                name="name" value="{{ old('name') }}" placeholder="Your Full Name" required>
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         {{-- Email --}}
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                name="email" value="{{ old('email') }}" placeholder="you@example.com" required autofocus>
+                                name="email" value="{{ old('email') }}" placeholder="you@example.com" required>
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        {{-- Password + toggle --}}
+                        {{-- Password --}}
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group">
@@ -76,29 +83,42 @@
                             </div>
                         </div>
 
-                        {{-- Remember me --}}
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" value="1" id="remember" name="remember"
-                                {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label text-secondary" for="remember">
-                                Remember me
-                            </label>
+                        {{-- Confirm Password --}}
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
+                                id="password_confirmation" name="password_confirmation" placeholder="Confirm your password" required>
+                            @error('password_confirmation')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Role --}}
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
+                                <option value="superadmin" {{ old('role') == 'superadmin' ? 'selected' : '' }}>Superadmin</option>
+                                <option value="owner_cafe" {{ old('role') == 'owner_cafe' ? 'selected' : '' }}>Owner Cafe</option>
+                                <option value="admin_cafe" {{ old('role') == 'admin_cafe' ? 'selected' : '' }}>Admin Cafe</option>
+                                <option value="cashier_cafe" {{ old('role') == 'cashier_cafe' ? 'selected' : '' }}>Cashier Cafe</option>
+                            </select>
+                            @error('role')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         {{-- Actions --}}
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-small-primary rounded-3 py-2 fw-semibold">
-                                Manage Now
+                                Create Account
                             </button>
 
-                            {{-- Link ke register --}}
-                            <a href="/create" class="btn btn-outline-light rounded-3 py-2 fw-semibold">
-                                Create New Account
+                            {{-- Link ke login --}}
+                            <a href="{{ route('login') }}" class="btn btn-outline-light rounded-3 py-2 fw-semibold">
+                                Already have an account? Sign In
                             </a>
                         </div>
                     </form>
-
-
                 </div>
             </div>
         </div>

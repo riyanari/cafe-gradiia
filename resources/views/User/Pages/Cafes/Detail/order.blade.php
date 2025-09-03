@@ -32,15 +32,17 @@
             <div class="card-body">
                 <h5 class="fw-bold mb-3">Detail Pesanan</h5>
                 <p class="mb-1"><strong>Nama:</strong> {{ $order->nama }}</p>
-                <p class="mb-1"><strong>Meja:</strong> {{ $order->meja }}</p>
-                <p class="mb-3"><strong>Catatan:</strong> {{ $order->catatan ?? '-' }}</p>
+                <p class="mb-3"><strong>Meja:</strong> {{ $order->meja }}</p>
+                {{-- <p class="mb-3"><strong>Catatan:</strong> {{ $order->catatan ?? '-' }}</p> --}}
 
                 <ul class="list-group list-group-flush">
                     @foreach ($order->items as $item)
                         <li class="list-group-item d-flex justify-content-between">
                             <div>
                                 <div class="fw-semibold">{{ $item->name }}</div>
-                                <div class="small text-muted">{{ $item->quantity }} × Rp{{ number_format($item->price, 0, ',', '.') }}</div>
+                                <div class="small text-muted">{{ $item->quantity }} ×
+                                    Rp{{ number_format($item->price, 0, ',', '.') }}</div>
+                                <div class="small text-secondary-brown"><br>* 2 Pedas, 1 Sedang</div>
                             </div>
                             <div class="fw-bold">
                                 Rp{{ number_format($item->price * $item->quantity, 0, ',', '.') }}

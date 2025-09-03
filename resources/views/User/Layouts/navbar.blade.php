@@ -16,8 +16,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Profile</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('cafe.*') ? 'active' : '' }}" href="{{ route('cafe.index') }}">Cafes</a>
+                </li> --}}
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('cafe.*') ? 'active' : '' }}" href="cafe/rolet-specta">Cafes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/price">Price</a>
